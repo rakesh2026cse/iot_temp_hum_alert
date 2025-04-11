@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sensor Dashboard</title>
+</head>
+<body>
+    <h1>🌡️ Sensor Dashboard</h1>
+
+    {% if latest %}
+        <p><strong>Temperature:</strong> {{ latest[0] }} °C</p>
+        <p><strong>Humidity:</strong> {{ latest[1] }} %</p>
+        <p><strong>Timestamp:</strong> {{ latest[2] }}</p>
+    {% else %}
+        <p>No sensor data available.</p>
+    {% endif %}
+
+    <h2>🚨 Alerts (Last 5)</h2>
+    {% if alerts %}
+        <ul>
+        {% for alert in alerts %}
+            <li>{{ alert[1] }} — {{ alert[0] }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No alerts triggered.</p>
+    {% endif %}
+</body>
+</html>
