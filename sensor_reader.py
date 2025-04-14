@@ -3,7 +3,6 @@ import sqlite3
 import time
 from datetime import datetime
 
-# Sensor type and GPIO pin
 SENSOR = Adafruit_DHT.DHT11
 PIN = 4  # GPIO pin used for data signal
 
