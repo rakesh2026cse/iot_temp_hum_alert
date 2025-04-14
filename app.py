@@ -9,11 +9,9 @@ def home():
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
 
-    # Fetch latest sensor reading
     c.execute("SELECT temperature, humidity, timestamp FROM sensor_data ORDER BY id DESC LIMIT 1")
     latest = c.fetchone()
 
-    # Fetch last 5 alerts
     c.execute("SELECT message, timestamp FROM alerts ORDER BY id DESC LIMIT 5")
     alerts = c.fetchall()
 
