@@ -4,12 +4,11 @@ import time
 from datetime import datetime
 
 SENSOR = Adafruit_DHT.DHT11
-PIN = 4  # GPIO pin used for data signal
+PIN = 4 
 
 DB_NAME = "database.db"
-TEMP_THRESHOLD = 30  # Threshold for alert
+TEMP_THRESHOLD = 30 
 
-# Create database tables if they don't exist
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
@@ -31,24 +30,21 @@ def init_db():
     conn.commit()
     conn.close()
 
-# Read data from the sensor
 def read_sensor():
     humidity, temperature = Adafruit_DHT.read_retry(SENSOR, PIN)
     return temperature, humidity
 
-# Insert sensor data into database and check for alerts
 def insert_data(temp, hum):
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    # Insert data into sensor_data table
     c.execute("INSERT INTO sensor_data (temperature, humidity, timestamp) VALUES (?, ?, ?)", 
               (temp, hum, timestamp))
 
-    # Check and insert alert if needed
+
     if temp > TEMP_THRESHOLD:
-        alert = f"🔥 High temperature alert: {temp:.1f}°C at {timestamp}"
+        alert = f" High temperature alert: {temp:.1f}°C at {timestamp}"
         c.execute("INSERT INTO alerts (message, timestamp) VALUES (?, ?)", (alert, timestamp))
 
     conn.commit()
