@@ -50,7 +50,6 @@ def insert_data(temp, hum):
     conn.commit()
     conn.close()
 
-# Main loop
 def run():
     init_db()
     while True:
@@ -60,7 +59,7 @@ def run():
             print(f"Logged -> Temp: {temp:.1f}°C, Humidity: {hum:.1f}%")
         else:
             print("Sensor reading failed.")
-        time.sleep(10)  # Wait 10 seconds before next reading
+        time.sleep(10) 
 
 if __name__ == "__main__":
     run()
